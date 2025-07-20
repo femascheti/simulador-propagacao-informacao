@@ -2,12 +2,12 @@
 
 /* ======== BASE ======== */
 :root{
-    --cor-fundo: #4f364b ;
-    --cor-principal: #0B0D20 ;
+    --cor-fundo: #fff6ef;
+    --cor-principal: #0B0D20;
     --cor-secundaria: #cfdd2f; 
     --cor-destaque: #d6dc82;
     --cor-laranja: #ea631b;
-    --cor-texto: #fff6ef;
+    --cor-texto: #4f364b;
 }
 
 body {
