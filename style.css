@@ -129,7 +129,7 @@ input[type="range"] {
 
 /* Quando passa o mouse */
 input[type="range"]:hover {
-    background: var(--cor-texto); /* verde claro */
+    background: var(--cor-texto); 
 }
 
 /* Botão (thumb) do slider */
