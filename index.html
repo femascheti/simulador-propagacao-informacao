@@ -1,0 +1,89 @@
+<!-- Adicionar: que essa simulação é para fins didáticos e não tem dados reais de nenhum lugar -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Simulação: Propagação de Informação</title>
+</head>
+
+<body class="container">
+    <header>
+        <h1>Simulação | Propagação de Informação</h1>
+
+        <div class="descricao">
+            <p>
+                Nesta simulação, você poderá observar como uma informação se espalha por uma rede de pessoas conectadas.
+                Cada ponto representa uma pessoa que pode ou não compartilhar a informação. Alguns aprendem a verificar
+                a veracidade e param de repassar.
+            </p>
+            <p>Use os controles abaixo para ajustar a simulação.</p>
+        </div>
+
+        <div class="ajustes">
+            <div class="grupo-ajuste">
+                <label for="quantidadeNos">Número de pessoas na rede:</label>
+                <input type="number" id="quantidadeNos" value="30" min="5" max="100">
+            </div>
+
+            <div class="grupo-ajuste">
+                <label for="tipoInformacao">Tipo de informação:</label>
+                <select id="tipoInformacao">
+                    <option value="normal">Texto comum</option>
+                    <option value="viral">Imagem ou vídeo (mais viral)</option>
+                </select>
+            </div>
+
+            <div class="grupo-ajuste">
+                <label for="velocidade">Velocidade da animação:</label>
+                <input type="range" id="velocidade" min="1" max="1000" value="100">
+                <small id="velocidadeDescricao">← Mais rápido | Mais lento →</small>
+            </div>
+        </div>
+    </header>
+
+    <main>
+         <div class="controles">
+            <button onclick="iniciarSimulacao()">Iniciar</button>
+            <button onclick="resetarSimulacao()">Resetar</button>
+        </div>
+        <canvas id="quadro" width="700" height="500"></canvas> 
+
+        <div class="legenda">
+            <h3>Legenda:</h3>
+            <div class="grid-legenda">
+                <div class="item-legenda">
+                    <div class="amostra-legenda" style="background-color: blue;"></div>
+                    <p>Não viu a informação</p>
+                </div>
+                <div class="item-legenda">
+                    <div class="amostra-legenda" style="background-color: red;"></div>
+                    <p>Viu a informação</p>
+                </div>
+                <div class="item-legenda">
+                    <div class="amostra-legenda" style="background-color: orange;"></div>
+                    <p>Compartilhou a informação</p>
+                </div>
+                <div class="item-legenda">
+                    <div class="amostra-legenda" style="background-color: purple;"></div>
+                    <p>Recebeu a informação e não compartilhou</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <p>
+            Este recurso é destinado exclusivamente a fins didáticos. Não utiliza nem coleta dados reais de pessoas ou redes sociais; trata-se apenas de uma simulação para fins de aprendizado.
+        </p>
+
+    </main>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
