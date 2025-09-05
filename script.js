@@ -43,6 +43,7 @@ class No {
         this.estado = 'nao_viu';
         this.vizinhos = [];
         this.tempoVerificacao = Math.floor(Math.random() * frequenciaVerificacao);
+        this.jaCompartilhou = false;
     }
 
     desenhar() {
@@ -125,17 +126,29 @@ function executarPasso() {
     });
 
     nos.forEach((no, i) => {
-        if (no.estado === 'recebido' && Math.random() < chanceCompartilhar) {
+        if (no.estado === 'recebido' && !no.jaCompartilhou && Math.random() < chanceCompartilhar) {
             paraCompartilhar.push(i);
         }
     });
 
-    paraCompartilhar.forEach(i => nos[i].estado = 'compartilhando');
+    paraCompartilhar.forEach(i => {
+        nos[i].estado = 'compartilhando';
+        nos[i].jaCompartilhou = true;
+    });
     paraAprender.forEach(i => nos[i].estado = 'consciente');
 
     desenharRede();
     tempo++;
-    setTimeout(() => requestAnimationFrame(executarPasso), velocidade);
+
+    const aindaEspalhando = nos.some(no => no.estado === 'compartilhando') ||
+        nos.some(no => no.estado === 'recebido' && !no.jaCompartilhou);
+
+    if (aindaEspalhando) {
+        setTimeout(() => requestAnimationFrame(executarPasso), velocidade);
+    } else {
+        rodando = false;
+        mostrarResultado();
+    }
 }
 
 function iniciarSimulacao() {
@@ -149,6 +162,14 @@ function resetarSimulacao() {
     rodando = false;
     tempo = 0;
     configurarRede();
+    document.getElementById('resultado').textContent = '';
+}
+
+function mostrarResultado() {
+    const totalRecebeu = nos.filter(no => no.estado !== 'nao_viu').length;
+    const totalCompartilhou = nos.filter(no => no.jaCompartilhou).length;
+    document.getElementById('resultado').textContent =
+        `Alcance: ${totalRecebeu}/${quantidadeNos} pessoas, ${totalCompartilhou} compartilharam.`;
 }
 
 configurarRede();
