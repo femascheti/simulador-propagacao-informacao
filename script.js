@@ -15,6 +15,7 @@ let nos = [];
 let conexoes = [];
 let tempo = 0;
 let rodando = false;
+let caminhos = [];
 
 document.getElementById('quantidadeNos').addEventListener('change', () => {
     quantidadeNos = parseInt(document.getElementById('quantidadeNos').value);
@@ -62,6 +63,7 @@ class No {
 function configurarRede() {
     nos = [];
     conexoes = [];
+    caminhos = [];
     const alturaCanvas = Math.min(quantidadeNos * 15, 700);
     tela.height = alturaCanvas;
     for (let i = 0; i < quantidadeNos; i++) {
@@ -85,6 +87,40 @@ function configurarRede() {
     desenharRede();
 }
 
+function desenharSeta(de, para) {
+    const origem = nos[de];
+    const destino = nos[para];
+    const angulo = Math.atan2(destino.y - origem.y, destino.x - origem.x);
+    const raio = 10;
+    const inicioX = origem.x + Math.cos(angulo) * raio;
+    const inicioY = origem.y + Math.sin(angulo) * raio;
+    const fimX = destino.x - Math.cos(angulo) * raio;
+    const fimY = destino.y - Math.sin(angulo) * raio;
+
+    pincel.strokeStyle = 'orange';
+    pincel.lineWidth = 2;
+    pincel.beginPath();
+    pincel.moveTo(inicioX, inicioY);
+    pincel.lineTo(fimX, fimY);
+    pincel.stroke();
+
+    const tamanhoCabeca = 6;
+    pincel.beginPath();
+    pincel.moveTo(fimX, fimY);
+    pincel.lineTo(
+        fimX - tamanhoCabeca * Math.cos(angulo - Math.PI / 6),
+        fimY - tamanhoCabeca * Math.sin(angulo - Math.PI / 6)
+    );
+    pincel.lineTo(
+        fimX - tamanhoCabeca * Math.cos(angulo + Math.PI / 6),
+        fimY - tamanhoCabeca * Math.sin(angulo + Math.PI / 6)
+    );
+    pincel.closePath();
+    pincel.fillStyle = 'orange';
+    pincel.fill();
+    pincel.lineWidth = 1;
+}
+
 function desenharRede() {
     pincel.clearRect(0, 0, tela.width, tela.height);
     conexoes.forEach(([i, j]) => {
@@ -92,8 +128,10 @@ function desenharRede() {
         pincel.moveTo(nos[i].x, nos[i].y);
         pincel.lineTo(nos[j].x, nos[j].y);
         pincel.strokeStyle = '#ccc';
+        pincel.lineWidth = 1;
         pincel.stroke();
     });
+    caminhos.forEach(([i, j]) => desenharSeta(i, j));
     nos.forEach(no => no.desenhar());
 }
 
@@ -110,10 +148,10 @@ function executarPasso() {
                 if (nos[j].estado === 'nao_viu' && Math.random() < chanceReceber) {
                     nos[j].estado = 'recebido';
                     compartilhou = true;
+                    caminhos.push([i, j]);
                 }
             });
-
-            if (Math.random() < chanceDuvidar) {
+         		if (Math.random() < chanceDuvidar) {
                 if (Math.random() < chanceAprender) {
                     paraAprender.push(i);
                 } else {

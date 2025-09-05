@@ -206,3 +206,9 @@ input[type="range"]::-moz-range-track {
     border-radius: 4px;
     border: 1px solid #333;
 }
+
+.linha-legenda {
+    width: 20px;
+    height: 4px;
+    background-color: var(--cor-laranja);
+}
