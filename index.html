@@ -50,7 +50,8 @@
             <button onclick="iniciarSimulacao()">Iniciar</button>
             <button onclick="resetarSimulacao()">Resetar</button>
         </div>
-        <canvas id="quadro" width="700" height="500"></canvas> 
+        <canvas id="quadro" width="700" height="500"></canvas>
+        <p id="resultado" class="resultado"></p>
 
         <div class="legenda">
             <h3>Legenda:</h3>
@@ -71,9 +72,11 @@
                     <div class="amostra-legenda" style="background-color: purple;"></div>
                     <p>Recebeu a informação e não compartilhou</p>
                 </div>
+                <div class="item-legenda">
+                    <div class="linha-legenda"></div>
+                    <p>Caminho da informação</p>
+                </div>
             </div>
-        </div>
-
         </div>
         <p>
             Este recurso é destinado exclusivamente a fins didáticos. Não utiliza nem coleta dados reais de pessoas ou redes sociais; trata-se apenas de uma simulação para fins de aprendizado.
