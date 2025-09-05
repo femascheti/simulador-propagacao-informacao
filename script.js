@@ -151,8 +151,7 @@ function executarPasso() {
                     caminhos.push([i, j]);
                 }
             });
-
-            if (Math.random() < chanceDuvidar) {
+         		if (Math.random() < chanceDuvidar) {
                 if (Math.random() < chanceAprender) {
                     paraAprender.push(i);
                 } else {
