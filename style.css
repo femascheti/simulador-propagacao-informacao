@@ -100,6 +100,11 @@ main {
     text-align: center;
 }
 
+.resultado {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
 
 button {
     background-color: var(--cor-destaque);
