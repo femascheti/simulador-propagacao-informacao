@@ -1,17 +1,15 @@
 /* ============================================================
-   Simulação: Propagação de Informação
-   Layout específico da página — tokens e componentes vêm de
-   global.css / components.css (design system Fernanda Mascheti).
+   Tutorial guiado — Propagação de Informação
    ============================================================ */
 
 body { padding-bottom: var(--space-9); }
 
-/* conteúdo mais largo que o padrão de 1040px do design system — o canvas
-   e os 4 controles lado a lado se beneficiam do espaço extra */
+/* conteúdo mais largo que o padrão de 1040px do design system */
 .wrap { max-width: 1280px; }
 
-/* ---------- header ---------- */
-.page-header { padding-top: var(--space-9); padding-bottom: var(--space-7); }
+/* ---------- header (compartilha .page-header/.back-link com style.css,
+   redeclarados aqui pra tutorial.html não depender de style.css) ---------- */
+.page-header { padding-top: var(--space-9); padding-bottom: var(--space-6); }
 .page-header-top {
   display: flex;
   align-items: center;
@@ -33,36 +31,31 @@ body { padding-bottom: var(--space-9); }
 .back-link:hover { color: var(--brand-blue); }
 .back-link .icon { width: 14px; height: 14px; }
 .page-header > .eyebrow { display: block; margin-bottom: var(--space-3); }
-.page-header h1 {
-  font-size: var(--text-hero);
-  max-width: 26ch;
-}
-.lede {
-  font-size: var(--text-lg);
-  color: var(--ink-soft);
-  line-height: 1.6;
-  margin-top: var(--space-4);
-  max-width: 62ch;
-}
+.page-header h1 { font-size: var(--text-hero); max-width: 30ch; }
+.lede { font-size: var(--text-lg); color: var(--ink-soft); line-height: 1.6; margin-top: var(--space-4); max-width: 62ch; }
 
-/* ---------- card da simulação ---------- */
+/* ---------- progresso ---------- */
+.tutorial-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.tutorial-dots { display: flex; gap: 8px; }
+.tutorial-dots .carousel-dot { width: 9px; height: 9px; }
+
+/* ---------- card / painéis por nível ---------- */
 .sim-card { padding: var(--space-6) var(--space-6) var(--space-7); }
+.nivel-painel { display: none; }
+.nivel-painel.active { display: block; }
 
 .sim-controls {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-5);
-  margin-bottom: var(--space-5);
+  margin: var(--space-5) 0;
 }
-@media (max-width: 720px) {
-  .sim-controls { grid-template-columns: 1fr; }
-}
-
-.sim-actions {
-  display: flex;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
-}
+.sim-actions { display: flex; gap: var(--space-3); margin-bottom: var(--space-5); }
 
 .sim-canvas-wrap {
   border: 1px solid var(--line);
@@ -70,7 +63,7 @@ body { padding-bottom: var(--space-9); }
   background: var(--paper);
   overflow: hidden;
 }
-#quadro { display: block; width: 100%; height: auto; }
+canvas { display: block; width: 100%; height: auto; }
 
 .resultado {
   font-family: 'Space Mono', monospace;
@@ -80,23 +73,16 @@ body { padding-bottom: var(--space-9); }
   min-height: 1.2em;
 }
 
-/* ---------- legenda ---------- */
-.legenda { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--line); }
-.legenda-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
-}
-.linha-legenda {
-  display: inline-block;
-  width: 14px; height: 2px;
-  border-radius: 1px;
-  background: var(--amber);
-}
+.legenda { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--line); }
+.legenda-grid { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.linha-legenda { display: inline-block; width: 14px; height: 2px; border-radius: 1px; background: var(--amber); }
 
-/* ---------- alert de disclaimer ---------- */
-main .alert { margin-top: var(--space-6); }
+/* ---------- navegação entre níveis ---------- */
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-6);
+}
 
 /* ---------- footer ---------- */
 .site-footer {

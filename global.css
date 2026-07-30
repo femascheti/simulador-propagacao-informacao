@@ -1,0 +1,244 @@
+/* ============================================================
+   Fernanda Mascheti — Design Tokens (global.css)
+   Extraído do artifact "Sistema de Identidade v01"
+   (https://claude.ai/code/artifact/1e1ac895-8201-4791-9dce-32bb46d02f50)
+   ============================================================ */
+
+/* ---------- fonts ----------
+   DM Serif Display, Space Grotesk e Space Mono são carregadas via
+   Google Fonts (<link> no <head> de cada página). Não declarar
+   @font-face local aqui sem os arquivos correspondentes em /fonts —
+   uma declaração local com o mesmo family/weight que falha ao
+   carregar (404) some com a fonte inteira em vez de cair pro
+   Google Fonts, porque o navegador não faz fallback entre
+   @font-face concorrentes, só pro próximo da font-family da regra. */
+
+/* ---------- color tokens ---------- */
+:root {
+  --paper: #fdfdfb;
+  --paper-raised: #ffffff;
+  --ink: #15131f;
+  --ink-soft: #4a4757;
+  --line: #e4e1de;
+
+  --brand-blue: #0029ff;
+  --brand-blue-ink: #ffffff;
+  --lime: #b9cc1f;
+  --lime-ink: #24280a;
+  --pink: #e8447a;
+  --pink-ink: #fff0f4;
+  --amber: #fe470a;
+  --amber-ink: #2a0a00;
+  --sky: #9dcff0;
+  --sky-ink: #072843;
+  --sun: #fef76d;
+  --sun-ink: #2a2400;
+
+  --shadow: 220 20% 10%;
+  --radius: 3px;
+
+  /* elevação (superfícies levantadas: card hover, toast, dropdown, dialog) */
+  --elevation-1: 0 1px 2px hsl(var(--shadow) / 0.06), 0 1px 1px hsl(var(--shadow) / 0.04);
+  --elevation-2: 0 8px 20px -4px hsl(var(--shadow) / 0.14), 0 2px 6px -2px hsl(var(--shadow) / 0.08);
+  --elevation-3: 0 20px 50px -12px hsl(var(--shadow) / 0.35);
+
+  /* anel de foco compartilhado por botões, inputs e controles */
+  --focus-ring: 0 0 0 3px hsl(228 100% 50% / 0.18);
+
+  /* spacing scale (extraída dos paddings/gaps usados no artifact) */
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 14px;
+  --space-4: 18px;
+  --space-5: 22px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: clamp(20px, 5vw, 56px);   /* padding lateral de página */
+  --space-9: clamp(40px, 7vw, 72px);   /* padding vertical de seção */
+  --space-10: clamp(50px, 9vw, 96px);  /* padding vertical do hero */
+
+  /* type scale */
+  --text-xs: 0.72rem;   /* eyebrow, .theme-toggle, labels mono */
+  --text-sm: 0.78rem;   /* .card .tag, notas pequenas */
+  --text-sm-alt: 0.82rem; /* .chip, swatch-meta .name */
+  --text-base: 0.95rem; /* wordmark */
+  --text-md: 1.05rem;   /* corpo padrão / type-sample-body */
+  --text-lg: 1.08rem;   /* hero lede */
+  --text-h2: clamp(1.5rem, 3vw, 2rem);      /* section-head h2 */
+  --text-display-sm: clamp(1.6rem, 3.4vw, 2.5rem); /* type specimen display */
+  --text-hero: clamp(2.4rem, 6vw, 4.3rem);  /* hero h1 */
+
+  --max-content: 1040px; /* .wrap max-width */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131226;
+    --paper-raised: #1b1a33;
+    --ink: #f3f1ff;
+    --ink-soft: #b3aecf;
+    --line: #322f52;
+    --brand-blue: #0029ff;
+    --brand-blue-ink: #ffffff;
+    --lime: #d7ec3f;
+    --lime-ink: #1b1e05;
+    --pink: #ff7aa8;
+    --pink-ink: #2a0714;
+    --amber: #fe470a;
+    --amber-ink: #2a0a00;
+    --sky: #9dcff0;
+    --sky-ink: #072843;
+    --sun: #fef76d;
+    --sun-ink: #2a2400;
+  }
+}
+:root[data-theme='dark'] {
+  --paper: #131226;
+  --paper-raised: #1b1a33;
+  --ink: #f3f1ff;
+  --ink-soft: #b3aecf;
+  --line: #322f52;
+  --brand-blue: #0029ff;
+  --brand-blue-ink: #ffffff;
+  --lime: #d7ec3f;
+  --lime-ink: #1b1e05;
+  --pink: #ff7aa8;
+  --pink-ink: #2a0714;
+  --amber: #fe470a;
+  --amber-ink: #2a0a00;
+  --sky: #9dcff0;
+  --sky-ink: #072843;
+  --sun: #fef76d;
+  --sun-ink: #2a2400;
+}
+:root[data-theme='light'] {
+  --paper: #fdfdfb;
+  --paper-raised: #ffffff;
+  --ink: #15131f;
+  --ink-soft: #4a4757;
+  --line: #e4e1de;
+  --brand-blue: #0029ff;
+  --brand-blue-ink: #ffffff;
+  --lime: #b9cc1f;
+  --lime-ink: #24280a;
+  --pink: #e8447a;
+  --pink-ink: #fff0f4;
+  --amber: #fe470a;
+  --amber-ink: #2a0a00;
+  --sky: #9dcff0;
+  --sky-ink: #072843;
+  --sun: #fef76d;
+  --sun-ink: #2a2400;
+}
+
+/* ---------- base reset & typography ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Grotesk', ui-sans-serif, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background .3s ease, color .3s ease;
+}
+
+::selection { background: var(--lime); color: var(--lime-ink); }
+
+a { color: var(--brand-blue); }
+
+h1, h2, h3 {
+  font-family: 'DM Serif Display', ui-serif, Georgia, serif;
+  font-weight: 400;
+  line-height: 1.05;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.wrap {
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+/* ---------- border radius tokens em uso ---------- */
+.radius-card { border-radius: var(--radius); }   /* cards, swatches */
+.radius-pill { border-radius: 999px; }           /* botões, chips, toggle */
+.radius-circle { border-radius: 50%; }           /* dots do grafo, avatar */
+
+/* ---------- componentes-base (tokens aplicados) ---------- */
+
+/* dot/node — usado no motivo de constelação (hero, chips, bullets de tag) */
+.node-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.node-dot.c-lime  { background: var(--lime); }
+.node-dot.c-pink  { background: var(--pink); }
+.node-dot.c-amber { background: var(--amber); }
+.node-dot.c-sky   { background: var(--sky); }
+.node-dot.c-sun   { background: var(--sun); }
+.node-dot.c-blue  { background: var(--brand-blue); }
+.node-dot.c-paper { background: var(--paper-raised); border: 1px solid var(--ink-soft); }
+
+/* chip / badge (tags de categoria: Design Instrucional, Dados, Produto...) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 9px 16px 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-family: 'Space Mono', monospace;
+  font-size: var(--text-sm-alt);
+  background: var(--paper-raised);
+}
+
+/* card de projeto/categoria */
+.card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-5) var(--space-5) var(--space-6);
+  background: var(--paper-raised);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--elevation-2); }
+
+/* botão pill (ex: toggle de tema, CTA outline) */
+.btn-pill {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.btn-pill:hover { border-color: var(--ink-soft); }
+.btn-pill:focus { outline: none; }
+.btn-pill:focus-visible { border-color: var(--brand-blue); box-shadow: var(--focus-ring); }
+.btn-pill:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-pill:disabled:hover { border-color: var(--line); }
+
+/* variante preenchida — ação principal */
+.btn-pill.primary { background: var(--brand-blue); color: var(--brand-blue-ink); border-color: var(--brand-blue); }
+.btn-pill.primary:hover { background: var(--brand-blue); border-color: var(--brand-blue); filter: brightness(0.92); }
+.btn-pill.primary:disabled:hover { filter: none; }

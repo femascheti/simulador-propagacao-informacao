@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novidades — Propagação de Informação</title>
+<meta name="description" content="O que mudou na v2.0 da simulação de propagação de informação, e por quê.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="novidades.css">
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="wrap page-header">
+  <div class="page-header-top">
+    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg>início</a>
+    <button class="btn-pill" id="themeToggle" type="button">
+      <span class="node-dot c-blue"></span> <span id="themeLabel">tema: sistema</span>
+    </button>
+  </div>
+  <span class="eyebrow">✨ Novidades</span>
+  <h1>O que mudou na v2.0</h1>
+  <p class="lede">
+    Se você já usou essa simulação antes, ela mudou bastante — visual, estrutura e até o modelo por trás da
+    propagação. Continua sendo a mesma ferramenta, sobre o mesmo assunto (como informação se espalha numa rede),
+    só que mais clara e um pouco mais honesta sobre o que está simulando.
+  </p>
+</header>
+
+<main class="wrap">
+  <div class="card">
+
+    <div class="novidade">
+      <div class="novidade-marca" style="background:hsl(228 100% 50% / .12); color:var(--brand-blue);">🧭</div>
+      <div class="novidade-corpo">
+        <h3>Três páginas em vez de uma</h3>
+        <p>Antes era uma página só. Agora tem uma <strong>tela de entrada</strong> pra escolher entre um
+        <strong>tutorial guiado</strong> (4 níveis, do conceito básico até a rede completa) ou ir direto pra
+        <strong>simulação completa</strong>. Se você tinha essa página salva nos favoritos, o link antigo agora
+        leva pra tela de entrada — a simulação continua existindo, só mudou de endereço.</p>
+      </div>
+    </div>
+
+    <div class="novidade">
+      <div class="novidade-marca" style="background:var(--lime); color:var(--lime-ink);">🎨</div>
+      <div class="novidade-corpo">
+        <h3>Identidade visual nova</h3>
+        <p>O visual antigo (roxo/laranja, fonte serifada) deu lugar a um design system consistente, com
+        componentes reutilizáveis, tema claro/escuro, e mais atenção a contraste e navegação por teclado.</p>
+      </div>
+    </div>
+
+    <div class="novidade">
+      <div class="novidade-marca" style="background:var(--pink); color:var(--pink-ink);">🔧</div>
+      <div class="novidade-corpo">
+        <h3>Modelo de propagação mais claro</h3>
+        <p>Achamos um problema real testando a versão antiga: um nó podia aparecer marcado como "já compartilhou"
+        mesmo sem ter conseguido passar a informação pra ninguém — porque a decisão de parar de repassar
+        acontecia de um jeito invisível, no meio da simulação.</p>
+        <p>Agora cada pessoa da rede só chega a um estado final (repassou / não repassou) por uma regra visível:
+        ela tenta repassar exatamente uma vez, e a cor reflete o resultado real disso — nunca um estado que não
+        aconteceu de verdade.</p>
+      </div>
+    </div>
+
+    <div class="novidade">
+      <div class="novidade-marca" style="background:var(--amber); color:var(--amber-ink);">📚</div>
+      <div class="novidade-corpo">
+        <h3>Educação midiática, com base em pesquisa</h3>
+        <p>Adicionamos um parâmetro opcional pra explorar o efeito da educação midiática na propagação. Ele é
+        <strong>desligado por padrão</strong> — só entra na simulação se você ativar o switch — e o efeito é
+        probabilístico (reduz bastante a chance de repassar, não elimina), baseado numa meta-análise real sobre
+        o tema. Os detalhes e a referência completa estão no
+        <a href="https://github.com/femascheti/simulador-propagacao-informacao#-referência-científica">README do projeto</a>.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="novidades-footer-nav">
+    <a class="btn-pill primary focus-ring" href="tutorial.html">Ver o tutorial</a>
+    <a class="btn-pill focus-ring" href="simulacao.html">Ir pra simulação</a>
+  </div>
+</main>
+
+<footer class="wrap site-footer">
+  <span class="footer-brand">fernanda<span class="footer-dot">•</span>mascheti</span>
+  <div class="site-footer-links">
+    <a href="https://femascheti.com">blog ↗</a>
+    <a href="https://github.com/femascheti/simulador-propagacao-informacao">código no GitHub ↗</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const toggle = document.getElementById('themeToggle');
+    const label = document.getElementById('themeLabel');
+    const root = document.documentElement;
+    const states = ['system', 'light', 'dark'];
+    let stateIndex = 0;
+    toggle.addEventListener('click', () => {
+      stateIndex = (stateIndex + 1) % states.length;
+      const s = states[stateIndex];
+      if (s === 'system') { root.removeAttribute('data-theme'); label.textContent = 'tema: sistema'; }
+      else { root.setAttribute('data-theme', s); label.textContent = 'tema: ' + (s === 'light' ? 'claro' : 'escuro'); }
+    });
+  })();
+</script>
+</body>
+</html>
