@@ -88,7 +88,7 @@ function criarMotorRede({ canvas, getQuantidade, getChances, getPercentualEducad
         const quantidadeNos = getQuantidade();
         nos = []; conexoes = []; caminhos = [];
         canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = Math.min(quantidadeNos * 15, alturaMax);
+        canvas.height = Math.max(280, Math.min(quantidadeNos * 15, alturaMax));
         for (let i = 0; i < quantidadeNos; i++) {
             const padding = 20;
             nos.push(new No(
