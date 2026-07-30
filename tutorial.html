@@ -1,268 +1,593 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutorial: Propagação de Informação</title>
-<meta name="description" content="Tutorial guiado em níveis sobre como uma informação se espalha por uma rede de pessoas conectadas.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="global.css">
-<link rel="stylesheet" href="components.css">
-<link rel="stylesheet" href="tutorial.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial: Propagação de Informação</title>
+    <meta
+      name="description"
+      content="Tutorial guiado em níveis sobre como uma informação se espalha por uma rede de pessoas conectadas."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="components.css" />
+    <link rel="stylesheet" href="tutorial.css" />
+  </head>
+  <body>
+    <!-- Sprite de ícones (Lucide, MIT license — self-hosted) -->
+    <svg style="display: none" aria-hidden="true">
+      <defs>
+        <symbol
+          id="icon-info"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        </symbol>
+        <symbol
+          id="icon-arrow-left"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5" />
+          <path d="m12 19-7-7 7-7" />
+        </symbol>
+      </defs>
+    </svg>
 
-<!-- Sprite de ícones (Lucide, MIT license — self-hosted) -->
-<svg style="display:none" aria-hidden="true">
-  <defs>
-    <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
-    </symbol>
-    <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
-    </symbol>
-  </defs>
-</svg>
+    <header class="wrap page-header">
+      <div class="page-header-top">
+        <a class="back-link" href="index.html"
+          ><svg class="icon" viewBox="0 0 24 24">
+            <use href="#icon-arrow-left" /></svg
+          >início</a
+        >
+        <button class="btn-pill" id="themeToggle" type="button">
+          <span class="node-dot c-blue"></span>
+          <span id="themeLabel">tema: sistema</span>
+        </button>
+      </div>
+      <span class="eyebrow">Tutorial guiado · Cidadania Digital</span>
+      <h1>Como a informação se espalha?</h1>
+      <p class="lede">
+        Este tutorial guiado explica como uma informação se espalha por uma rede
+        de pessoas conectadas, através de uma simulação interativa. Por trás
+        desta rede tem um grafo: uma rede de pontos (as pessoas) ligados por
+        linhas (as conexões entre elas). É assim que os cientistas de dados
+        representam qualquer rede, seja de amigos, de contatos ou de informações
+        que se espalham.
+      </p>
+    </header>
 
-<header class="wrap page-header">
-  <div class="page-header-top">
-    <a class="back-link" href="index.html"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-left"/></svg>início</a>
-    <button class="btn-pill" id="themeToggle" type="button">
-      <span class="node-dot c-blue"></span> <span id="themeLabel">tema: sistema</span>
-    </button>
-  </div>
-  <span class="eyebrow">Tutorial guiado · Cidadania Digital</span>
-  <h1>Como a informação se espalha?</h1>
-  <p class="lede">Este tutorial guiado explica como uma informação se espalha por uma rede de pessoas conectadas, através de uma simulação interativa.</p>
-  <p class="lede">Por trás desta rede tem um grafo: uma rede de pontos (as pessoas) ligados por linhas (as conexões entre elas). É assim que os cientistas de dados representam qualquer rede, seja de amigos, de contatos ou de informações que se espalham.</p>
-</header>
+    <main class="wrap">
+      <div class="tutorial-progress">
+        <span class="eyebrow" id="nivelLabel">Nível 1 de 4</span>
+        <div class="tutorial-dots" id="tutorialDots"></div>
+      </div>
 
-<main class="wrap">
-  <div class="tutorial-progress">
-    <span class="eyebrow" id="nivelLabel">Nível 1 de 4</span>
-    <div class="tutorial-dots" id="tutorialDots"></div>
-  </div>
-
-  <div class="card sim-card">
-
-    <!-- ========== NÍVEL 0 — conceito, clique manual ========== -->
-    <div class="nivel-painel active" data-nivel="0">
-      <div class="alert">
-        <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
-        <div>
-          <p class="alert-title" id="alertTituloNivel0">Comece por aqui!</p>
-          <p class="alert-description" id="instrucaoNivel0">Para iniciar, clique no nó laranja, ele tem uma informação guardada. Você pode escolher repassar ou não repassar a informação.</p>
-          <p class="alert-description" id="instrucaoNivel0Repassou" style="display:none;">Você repassou a informação! Agora observe o caminho que ela percorre pela rede.</p>
-          <p class="alert-description" id="instrucaoNivel0NaoRepassou" style="display:none;">Você não repassou a informação. Ninguém mais vai ver ela.</p>
-          <p class="alert-description" id="lembreteCoresNivel0" style="display:none;">Antes de seguir, relembre o que cada cor significa: azul é quem ainda não viu a informação, rosa é quem viu mas ainda não decidiu, laranja é quem está selecionado agora, verde é quem repassou, e bege é quem recebeu e decidiu não repassar. Clique em "Próximo nível" de novo pra continuar.</p>
-        </div>
-      </div>
-      <div class="sim-canvas-wrap" style="margin-top: var(--space-5);">
-        <canvas id="quadroNivel0" width="700" height="320"></canvas>
-      </div>
-      <div class="sim-actions" style="margin-top: var(--space-5); margin-bottom: 0;">
-        <button class="btn-pill primary focus-ring" id="btnRepassarNivel0" type="button" disabled>Repassar</button>
-        <button class="btn-pill focus-ring" id="btnNaoRepassarNivel0" type="button" disabled>Não repassar</button>
-        <button class="btn-pill focus-ring" id="btnReiniciarNivel0" type="button">Reiniciar</button>
-      </div>
-      <div class="legenda">
-        <div class="legenda-grid">
-          <span class="chip"><span class="node-dot c-sky"></span>Não viu a informação</span>
-          <span class="chip"><span class="node-dot c-pink"></span>Viu, ainda não decidiu</span>
-          <span class="chip"><span class="node-dot c-amber"></span>Selecionado agora</span>
-          <span class="chip"><span class="node-dot c-lime"></span>Repassou</span>
-          <span class="chip"><span class="node-dot c-paper"></span>Recebeu e não repassou</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== NÍVEL 1 — rede pequena, passo a passo ========== -->
-    <div class="nivel-painel" data-nivel="1">
-      <div class="alert">
-        <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
-        <div>
-          <p class="alert-title">Uma rede cresce</p>
-          <p class="alert-description">Clique em "Próximo passo" pra avançar a simulação aos poucos e observar como a informação se ramifica.</p>
-        </div>
-      </div>
-      <div class="sim-canvas-wrap" style="margin-top: var(--space-5);">
-        <canvas id="quadroNivel1" width="700" height="360"></canvas>
-      </div>
-      <div class="sim-actions" style="margin-top: var(--space-5); margin-bottom: 0;">
-        <button class="btn-pill primary focus-ring" id="btnPassoNivel1" type="button">Próximo passo</button>
-        <button class="btn-pill focus-ring" id="btnReiniciarNivel1" type="button">Reiniciar</button>
-      </div>
-      <p class="resultado" id="resultadoNivel1"></p>
-      <div class="legenda">
-        <div class="legenda-grid">
-          <span class="chip"><span class="node-dot c-sky"></span>Não viu</span>
-          <span class="chip"><span class="node-dot c-pink"></span>Viu, ainda não decidiu</span>
-          <span class="chip"><span class="node-dot c-amber"></span>Compartilhando agora</span>
-          <span class="chip"><span class="node-dot c-lime"></span>Já compartilhou</span>
-          <span class="chip"><span class="node-dot c-paper"></span>Recebeu e não repassou</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== NÍVEL 2 — rede completa, automática ========== -->
-    <div class="nivel-painel" data-nivel="2">
-      <div class="alert">
-        <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
-        <div>
-          <p class="alert-title">Agora, vamos ver como se comporta a rede sozinha!</p>
-          <p class="alert-description">A simulação executa sozinha. Ajuste o número de pessoas e a velocidade e clique em Iniciar.</p>
-        </div>
-      </div>
-      <div class="sim-controls">
-        <div class="field">
-          <span class="field-label" id="quantidadeNosNivel2Label">Número de pessoas</span>
-          <div class="stepper" id="quantidadeNosNivel2Stepper" role="group" aria-labelledby="quantidadeNosNivel2Label">
-            <button class="stepper-btn focus-ring" type="button" data-step="-1" aria-label="Diminuir">−</button>
-            <span class="stepper-value" id="quantidadeNosNivel2Value">20</span>
-            <button class="stepper-btn focus-ring" type="button" data-step="1" aria-label="Aumentar">+</button>
-          </div>
-        </div>
-        <div class="field">
-          <label class="field-label" for="velocidadeNivel2">Velocidade da animação</label>
-          <div class="slider">
-            <div class="slider-row">
-              <span class="slider-edge">0</span>
-              <input type="range" id="velocidadeNivel2" min="0" max="100" value="65">
-              <span class="tooltip" id="velocidadeNivel2Tooltip">65</span>
-              <span class="slider-edge">100</span>
+      <div class="card sim-card">
+        <!-- ========== NÍVEL 0 — conceito, clique manual ========== -->
+        <div class="nivel-painel active" data-nivel="0">
+          <div class="alert">
+            <svg class="alert-icon icon" viewBox="0 0 24 24">
+              <use href="#icon-info" />
+            </svg>
+            <div>
+              <p class="alert-title" id="alertTituloNivel0">Comece por aqui!</p>
+              <p class="alert-description" id="instrucaoNivel0">
+                Para iniciar, clique no nó laranja, ele tem uma informação
+                guardada. Você pode escolher repassar ou não repassar a
+                informação.
+              </p>
+              <p
+                class="alert-description"
+                id="instrucaoNivel0Repassou"
+                style="display: none"
+              >
+                Você repassou a informação! Agora observe o caminho que ela
+                percorre pela rede.
+              </p>
+              <p
+                class="alert-description"
+                id="instrucaoNivel0NaoRepassou"
+                style="display: none"
+              >
+                Você não repassou a informação. Ninguém mais vai ver ela.
+              </p>
+              <p
+                class="alert-description"
+                id="lembreteCoresNivel0"
+                style="display: none"
+              >
+                Antes de seguir, relembre o que cada cor significa: azul é quem
+                ainda não viu a informação, rosa é quem viu mas ainda não
+                decidiu, laranja é quem está selecionado agora, verde é quem
+                repassou, e bege é quem recebeu e decidiu não repassar. Clique
+                em "Próximo nível" de novo para continuar.
+              </p>
             </div>
-            <span class="field-description">← mais rápido · mais lento →</span>
           </div>
-        </div>
-        <div class="field">
-          <label class="switch">
-            <input type="checkbox" id="considerarEducacaoNivel2">
-            <span class="switch-track"><span class="switch-thumb"></span></span>
-            Considerar educação midiática
-          </label>
-          <div class="slider" id="educacaoNivel2SliderWrap" style="display:none;">
-            <div class="slider-row">
-              <span class="slider-edge">0%</span>
-              <input type="range" id="educacaoNivel2" min="0" max="100" value="30">
-              <span class="tooltip" id="educacaoNivel2Tooltip">30%</span>
-              <span class="slider-edge">100%</span>
+          <div class="sim-canvas-wrap" style="margin-top: var(--space-5)">
+            <canvas id="quadroNivel0" width="700" height="320"></canvas>
+          </div>
+          <div
+            class="sim-actions"
+            style="margin-top: var(--space-5); margin-bottom: 0"
+          >
+            <button
+              class="btn-pill primary focus-ring"
+              id="btnRepassarNivel0"
+              type="button"
+              disabled
+            >
+              Repassar
+            </button>
+            <button
+              class="btn-pill focus-ring"
+              id="btnNaoRepassarNivel0"
+              type="button"
+              disabled
+            >
+              Não repassar
+            </button>
+            <button
+              class="btn-pill focus-ring"
+              id="btnReiniciarNivel0"
+              type="button"
+            >
+              Reiniciar
+            </button>
+          </div>
+          <div class="legenda">
+            <div class="legenda-grid">
+              <span class="chip"
+                ><span class="node-dot c-sky"></span>Não viu a informação</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-pink"></span>Viu, ainda não
+                decidiu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-amber"></span>Selecionado agora</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-lime"></span>Repassou</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-paper"></span>Recebeu e não
+                repassou</span
+              >
             </div>
-            <span class="field-description">O que acontece quando uma porcentagem de pessoas tem acesso à educação midiática?</span>
           </div>
         </div>
-      </div>
-      <div class="sim-actions">
-        <button class="btn-pill primary focus-ring" id="btnIniciarNivel2" type="button">Iniciar</button>
-        <button class="btn-pill focus-ring" id="btnResetarNivel2" type="button">Reiniciar</button>
-      </div>
-      <div class="sim-canvas-wrap">
-        <canvas id="quadroNivel2" width="700" height="420"></canvas>
-      </div>
-      <p class="resultado" id="resultadoNivel2"></p>
-      <div class="legenda">
-        <div class="legenda-grid">
-          <span class="chip"><span class="node-dot c-sky"></span>Não viu</span>
-          <span class="chip"><span class="node-dot c-pink"></span>Viu, ainda não decidiu</span>
-          <span class="chip"><span class="node-dot c-amber"></span>Compartilhando agora</span>
-          <span class="chip"><span class="node-dot c-lime"></span>Já compartilhou</span>
-          <span class="chip"><span class="node-dot c-paper"></span>Recebeu e não repassou</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- ========== NÍVEL 3 — tipos de informação ========== -->
-    <div class="nivel-painel" data-nivel="3">
-      <div class="alert">
-        <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
-        <div>
-          <p class="alert-title">Nem toda informação tem o mesmo peso!</p>
-          <p class="alert-description">Observe como o tipo de informação muda a velocidade de propagação.</p>
-        </div>
-      </div>
-      <div class="sim-controls">
-        <div class="field">
-          <span class="field-label" id="tipoInformacaoNivel3Label">Tipo de informação</span>
-          <div class="btn-group" id="tipoInformacaoNivel3Group" role="group" aria-labelledby="tipoInformacaoNivel3Label">
-            <button class="btn-pill active focus-ring" type="button" data-tipo="texto">Texto</button>
-            <button class="btn-pill focus-ring" type="button" data-tipo="imagem">Imagem</button>
-            <button class="btn-pill focus-ring" type="button" data-tipo="video">Vídeo</button>
-          </div>
-        </div>
-        <div class="field">
-          <span class="field-label" id="quantidadeNosNivel3Label">Número de pessoas</span>
-          <div class="stepper" id="quantidadeNosNivel3Stepper" role="group" aria-labelledby="quantidadeNosNivel3Label">
-            <button class="stepper-btn focus-ring" type="button" data-step="-1" aria-label="Diminuir">−</button>
-            <span class="stepper-value" id="quantidadeNosNivel3Value">20</span>
-            <button class="stepper-btn focus-ring" type="button" data-step="1" aria-label="Aumentar">+</button>
-          </div>
-        </div>
-        <div class="field">
-          <label class="field-label" for="velocidadeNivel3">Velocidade da animação</label>
-          <div class="slider">
-            <div class="slider-row">
-              <span class="slider-edge">0</span>
-              <input type="range" id="velocidadeNivel3" min="0" max="100" value="65">
-              <span class="tooltip" id="velocidadeNivel3Tooltip">65</span>
-              <span class="slider-edge">100</span>
+        <!-- ========== NÍVEL 1 — rede pequena, passo a passo ========== -->
+        <div class="nivel-painel" data-nivel="1">
+          <div class="alert">
+            <svg class="alert-icon icon" viewBox="0 0 24 24">
+              <use href="#icon-info" />
+            </svg>
+            <div>
+              <p class="alert-title">Uma rede cresce</p>
+              <p class="alert-description">
+                Clique em "Próximo passo" para avançar a simulação aos poucos e
+                observar como a informação se ramifica.
+              </p>
             </div>
-            <span class="field-description">← mais rápido · mais lento →</span>
           </div>
-        </div>
-        <div class="field">
-          <label class="switch">
-            <input type="checkbox" id="considerarEducacaoNivel3">
-            <span class="switch-track"><span class="switch-thumb"></span></span>
-            Considerar educação midiática
-          </label>
-          <div class="slider" id="educacaoNivel3SliderWrap" style="display:none;">
-            <div class="slider-row">
-              <span class="slider-edge">0%</span>
-              <input type="range" id="educacaoNivel3" min="0" max="100" value="30">
-              <span class="tooltip" id="educacaoNivel3Tooltip">30%</span>
-              <span class="slider-edge">100%</span>
+          <div class="sim-canvas-wrap" style="margin-top: var(--space-5)">
+            <canvas id="quadroNivel1" width="700" height="360"></canvas>
+          </div>
+          <div
+            class="sim-actions"
+            style="margin-top: var(--space-5); margin-bottom: 0"
+          >
+            <button
+              class="btn-pill primary focus-ring"
+              id="btnPassoNivel1"
+              type="button"
+            >
+              Próximo passo
+            </button>
+            <button
+              class="btn-pill focus-ring"
+              id="btnReiniciarNivel1"
+              type="button"
+            >
+              Reiniciar
+            </button>
+          </div>
+          <p class="resultado" id="resultadoNivel1"></p>
+          <div class="legenda">
+            <div class="legenda-grid">
+              <span class="chip"
+                ><span class="node-dot c-sky"></span>Não viu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-pink"></span>Viu, ainda não
+                decidiu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-amber"></span>Compartilhando
+                agora</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-lime"></span>Já compartilhou</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-paper"></span>Recebeu e não
+                repassou</span
+              >
             </div>
-            <span class="field-description">O que acontece quando uma porcentagem de pessoas tem acesso à educação midiática?</span>
+          </div>
+        </div>
+
+        <!-- ========== NÍVEL 2 — rede completa, automática ========== -->
+        <div class="nivel-painel" data-nivel="2">
+          <div class="alert">
+            <svg class="alert-icon icon" viewBox="0 0 24 24">
+              <use href="#icon-info" />
+            </svg>
+            <div>
+              <p class="alert-title">
+                Agora, vamos ver como se comporta a rede sozinha!
+              </p>
+              <p class="alert-description">
+                A simulação executa sozinha. Ajuste o número de pessoas e a
+                velocidade e clique em Iniciar.
+              </p>
+            </div>
+          </div>
+          <div class="sim-controls">
+            <div class="field">
+              <span class="field-label" id="quantidadeNosNivel2Label"
+                >Número de pessoas</span
+              >
+              <div
+                class="stepper"
+                id="quantidadeNosNivel2Stepper"
+                role="group"
+                aria-labelledby="quantidadeNosNivel2Label"
+              >
+                <button
+                  class="stepper-btn focus-ring"
+                  type="button"
+                  data-step="-1"
+                  aria-label="Diminuir"
+                >
+                  −
+                </button>
+                <span class="stepper-value" id="quantidadeNosNivel2Value"
+                  >20</span
+                >
+                <button
+                  class="stepper-btn focus-ring"
+                  type="button"
+                  data-step="1"
+                  aria-label="Aumentar"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="velocidadeNivel2"
+                >Velocidade da animação</label
+              >
+              <div class="slider">
+                <div class="slider-row">
+                  <span class="slider-edge">0</span>
+                  <input
+                    type="range"
+                    id="velocidadeNivel2"
+                    min="0"
+                    max="100"
+                    value="65"
+                  />
+                  <span class="tooltip" id="velocidadeNivel2Tooltip">65</span>
+                  <span class="slider-edge">100</span>
+                </div>
+                <span class="field-description"
+                  >← mais rápido · mais lento →</span
+                >
+              </div>
+            </div>
+            <div class="field">
+              <label class="switch">
+                <input type="checkbox" id="considerarEducacaoNivel2" />
+                <span class="switch-track"
+                  ><span class="switch-thumb"></span
+                ></span>
+                Considerar educação midiática
+              </label>
+              <div
+                class="slider"
+                id="educacaoNivel2SliderWrap"
+                style="display: none"
+              >
+                <div class="slider-row">
+                  <span class="slider-edge">0%</span>
+                  <input
+                    type="range"
+                    id="educacaoNivel2"
+                    min="0"
+                    max="100"
+                    value="30"
+                  />
+                  <span class="tooltip" id="educacaoNivel2Tooltip">30%</span>
+                  <span class="slider-edge">100%</span>
+                </div>
+                <span class="field-description"
+                  >O que acontece quando uma porcentagem de pessoas tem acesso à
+                  educação midiática?</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="sim-actions">
+            <button
+              class="btn-pill primary focus-ring"
+              id="btnIniciarNivel2"
+              type="button"
+            >
+              Iniciar
+            </button>
+            <button
+              class="btn-pill focus-ring"
+              id="btnResetarNivel2"
+              type="button"
+            >
+              Reiniciar
+            </button>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="quadroNivel2" width="700" height="420"></canvas>
+          </div>
+          <p class="resultado" id="resultadoNivel2"></p>
+          <div class="legenda">
+            <div class="legenda-grid">
+              <span class="chip"
+                ><span class="node-dot c-sky"></span>Não viu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-pink"></span>Viu, ainda não
+                decidiu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-amber"></span>Compartilhando
+                agora</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-lime"></span>Já compartilhou</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-paper"></span>Recebeu e não
+                repassou</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== NÍVEL 3 — tipos de informação ========== -->
+        <div class="nivel-painel" data-nivel="3">
+          <div class="alert">
+            <svg class="alert-icon icon" viewBox="0 0 24 24">
+              <use href="#icon-info" />
+            </svg>
+            <div>
+              <p class="alert-title">Nem toda informação tem o mesmo peso!</p>
+              <p class="alert-description">
+                Observe como o tipo de informação muda a velocidade de
+                propagação.
+              </p>
+            </div>
+          </div>
+          <div class="sim-controls">
+            <div class="field">
+              <span class="field-label" id="tipoInformacaoNivel3Label"
+                >Tipo de informação</span
+              >
+              <div
+                class="btn-group"
+                id="tipoInformacaoNivel3Group"
+                role="group"
+                aria-labelledby="tipoInformacaoNivel3Label"
+              >
+                <button
+                  class="btn-pill active focus-ring"
+                  type="button"
+                  data-tipo="texto"
+                >
+                  Texto
+                </button>
+                <button
+                  class="btn-pill focus-ring"
+                  type="button"
+                  data-tipo="imagem"
+                >
+                  Imagem
+                </button>
+                <button
+                  class="btn-pill focus-ring"
+                  type="button"
+                  data-tipo="video"
+                >
+                  Vídeo
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <span class="field-label" id="quantidadeNosNivel3Label"
+                >Número de pessoas</span
+              >
+              <div
+                class="stepper"
+                id="quantidadeNosNivel3Stepper"
+                role="group"
+                aria-labelledby="quantidadeNosNivel3Label"
+              >
+                <button
+                  class="stepper-btn focus-ring"
+                  type="button"
+                  data-step="-1"
+                  aria-label="Diminuir"
+                >
+                  −
+                </button>
+                <span class="stepper-value" id="quantidadeNosNivel3Value"
+                  >20</span
+                >
+                <button
+                  class="stepper-btn focus-ring"
+                  type="button"
+                  data-step="1"
+                  aria-label="Aumentar"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="velocidadeNivel3"
+                >Velocidade da animação</label
+              >
+              <div class="slider">
+                <div class="slider-row">
+                  <span class="slider-edge">0</span>
+                  <input
+                    type="range"
+                    id="velocidadeNivel3"
+                    min="0"
+                    max="100"
+                    value="65"
+                  />
+                  <span class="tooltip" id="velocidadeNivel3Tooltip">65</span>
+                  <span class="slider-edge">100</span>
+                </div>
+                <span class="field-description"
+                  >← mais rápido · mais lento →</span
+                >
+              </div>
+            </div>
+            <div class="field">
+              <label class="switch">
+                <input type="checkbox" id="considerarEducacaoNivel3" />
+                <span class="switch-track"
+                  ><span class="switch-thumb"></span
+                ></span>
+                Considerar educação midiática
+              </label>
+              <div
+                class="slider"
+                id="educacaoNivel3SliderWrap"
+                style="display: none"
+              >
+                <div class="slider-row">
+                  <span class="slider-edge">0%</span>
+                  <input
+                    type="range"
+                    id="educacaoNivel3"
+                    min="0"
+                    max="100"
+                    value="30"
+                  />
+                  <span class="tooltip" id="educacaoNivel3Tooltip">30%</span>
+                  <span class="slider-edge">100%</span>
+                </div>
+                <span class="field-description"
+                  >O que acontece quando uma porcentagem de pessoas tem acesso à
+                  educação midiática?</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="sim-actions">
+            <button
+              class="btn-pill primary focus-ring"
+              id="btnIniciarNivel3"
+              type="button"
+            >
+              Iniciar
+            </button>
+            <button
+              class="btn-pill focus-ring"
+              id="btnResetarNivel3"
+              type="button"
+            >
+              Reiniciar
+            </button>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="quadroNivel3" width="700" height="420"></canvas>
+          </div>
+          <p class="resultado" id="resultadoNivel3"></p>
+          <div class="legenda">
+            <div class="legenda-grid">
+              <span class="chip"
+                ><span class="node-dot c-sky"></span>Não viu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-pink"></span>Viu, ainda não
+                decidiu</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-amber"></span>Compartilhando
+                agora</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-lime"></span>Já compartilhou</span
+              >
+              <span class="chip"
+                ><span class="node-dot c-paper"></span>Recebeu e não
+                repassou</span
+              >
+            </div>
           </div>
         </div>
       </div>
-      <div class="sim-actions">
-        <button class="btn-pill primary focus-ring" id="btnIniciarNivel3" type="button">Iniciar</button>
-        <button class="btn-pill focus-ring" id="btnResetarNivel3" type="button">Reiniciar</button>
+
+      <div class="tutorial-nav">
+        <button class="btn-pill focus-ring" id="btnVoltarNivel" type="button">
+          ← Nível anterior
+        </button>
+        <button
+          class="btn-pill primary focus-ring"
+          id="btnProximoNivel"
+          type="button"
+        >
+          Próximo nível →
+        </button>
       </div>
-      <div class="sim-canvas-wrap">
-        <canvas id="quadroNivel3" width="700" height="420"></canvas>
+    </main>
+
+    <footer class="wrap site-footer">
+      <span class="footer-brand"
+        >fernanda<span class="footer-dot">●</span>mascheti</span
+      >
+      <div class="site-footer-links">
+        <a href="novidades.html">✨ novidades</a>
+        <a href="https://femascheti.com">blog ↗</a>
+        <a href="https://github.com/femascheti/simulador-propagacao-informacao"
+          >código no GitHub ↗</a
+        >
       </div>
-      <p class="resultado" id="resultadoNivel3"></p>
-      <div class="legenda">
-        <div class="legenda-grid">
-          <span class="chip"><span class="node-dot c-sky"></span>Não viu</span>
-          <span class="chip"><span class="node-dot c-pink"></span>Viu, ainda não decidiu</span>
-          <span class="chip"><span class="node-dot c-amber"></span>Compartilhando agora</span>
-          <span class="chip"><span class="node-dot c-lime"></span>Já compartilhou</span>
-          <span class="chip"><span class="node-dot c-paper"></span>Recebeu e não repassou</span>
-        </div>
-      </div>
-    </div>
+    </footer>
 
-  </div>
-
-  <div class="tutorial-nav">
-    <button class="btn-pill focus-ring" id="btnVoltarNivel" type="button">← Nível anterior</button>
-    <button class="btn-pill primary focus-ring" id="btnProximoNivel" type="button">Próximo nível →</button>
-  </div>
-</main>
-
-<footer class="wrap site-footer">
-  <span class="footer-brand">fernanda<span class="footer-dot">●</span>mascheti</span>
-  <div class="site-footer-links">
-    <a href="novidades.html">✨ novidades</a>
-    <a href="https://femascheti.com">blog ↗</a>
-    <a href="https://github.com/femascheti/simulador-propagacao-informacao">código no GitHub ↗</a>
-  </div>
-</footer>
-
-<script src="tutorial.js"></script>
-</body>
+    <script src="tutorial.js"></script>
+  </body>
 </html>
