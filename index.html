@@ -1,86 +1,132 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Propagação de Informação</title>
-<meta name="description" content="Simulação interativa de como uma informação se espalha por uma rede de pessoas conectadas — recurso didático de Cidadania Digital.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="global.css">
-<link rel="stylesheet" href="components.css">
-<link rel="stylesheet" href="landing.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Propagação de Informação</title>
+    <meta
+      name="description"
+      content="Simulação interativa de como uma informação se espalha por uma rede de pessoas conectadas — recurso didático de Cidadania Digital."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400..700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="components.css" />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <!-- Sprite de ícones (Lucide, MIT license — self-hosted) -->
+    <svg style="display: none" aria-hidden="true">
+      <defs>
+        <symbol
+          id="icon-arrow-right"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </symbol>
+      </defs>
+    </svg>
 
-<!-- Sprite de ícones (Lucide, MIT license — self-hosted) -->
-<svg style="display:none" aria-hidden="true">
-  <defs>
-    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-    </symbol>
-  </defs>
-</svg>
-
-<div class="landing-top">
-  <a class="btn-pill" href="novidades.html">✨ novidades</a>
-  <button class="btn-pill" id="themeToggle" type="button">
-    <span class="node-dot c-blue"></span> <span id="themeLabel">tema: sistema</span>
-  </button>
-</div>
-
-<section class="landing-hero">
-  <div class="wrap">
-    <div class="landing-intro">
-      <span class="eyebrow">Cidadania Digital</span>
-      <h1>Propagação de informação</h1>
-      <p>Uma simulação de como uma informação se espalha por uma rede de pessoas conectadas. Escolha como você quer explorar:</p>
+    <div class="landing-top">
+      <a class="btn-pill" href="novidades.html">✨ novidades</a>
+      <button class="btn-pill" id="themeToggle" type="button">
+        <span class="node-dot c-blue"></span>
+        <span id="themeLabel">tema: sistema</span>
+      </button>
     </div>
 
-    <div class="choice-grid">
-      <a class="card choice-card" href="tutorial.html">
-        <span class="node-dot c-lime"></span>
-        <h2>Tutorial</h2>
-        <p>Um passo a passo guiado, do conceito básico (poucos nós, controlado manualmente) até a simulação completa. Bom pra uma primeira explicação em sala.</p>
-        <span class="choice-cta">Começar tutorial <svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg></span>
-      </a>
+    <section class="landing-hero">
+      <div class="wrap">
+        <div class="landing-intro">
+          <span class="eyebrow">Cidadania Digital</span>
+          <h1>Propagação de informação</h1>
+          <p>
+            Uma simulação de como uma informação se espalha por uma rede de
+            pessoas conectadas. Escolha como você quer explorar:
+          </p>
+        </div>
 
-      <a class="card choice-card" href="simulacao.html">
-        <span class="node-dot c-amber"></span>
-        <h2>Simulação</h2>
-        <p>Vai direto pra simulação completa: ajuste o número de pessoas, o tipo de informação e a velocidade, e rode livremente.</p>
-        <span class="choice-cta">Abrir simulação <svg class="icon" viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg></span>
-      </a>
-    </div>
+        <div class="choice-grid">
+          <a class="card choice-card" href="tutorial.html">
+            <span class="node-dot c-lime"></span>
+            <h2>Tutorial</h2>
+            <p>
+              Um passo a passo guiado, do conceito básico (poucos nós,
+              controlado manualmente) até a simulação completa. Bom pra uma
+              primeira exploração.
+            </p>
+            <span class="choice-cta"
+              >Começar tutorial
+              <svg class="icon" viewBox="0 0 24 24">
+                <use href="#icon-arrow-right" /></svg
+            ></span>
+          </a>
 
-    <p class="landing-extra">
-      É professor(a) e quer aplicar isso em sala?
-      <a class="chip" href="#" title="Em breve">Sequência de aula pronta <span class="landing-em-breve">em breve</span></a>
-    </p>
-  </div>
-</section>
+          <a class="card choice-card" href="simulacao.html">
+            <span class="node-dot c-amber"></span>
+            <h2>Simulação</h2>
+            <p>
+              Vai direto pra simulação completa: ajuste o número de pessoas, o
+              tipo de informação e a velocidade e rode livremente.
+            </p>
+            <span class="choice-cta"
+              >Abrir simulação
+              <svg class="icon" viewBox="0 0 24 24">
+                <use href="#icon-arrow-right" /></svg
+            ></span>
+          </a>
+        </div>
 
-<footer class="landing-footer">
-  fernanda<span style="color:var(--pink);">•</span>mascheti ·
-  <a href="https://femascheti.com" style="color:var(--ink-soft);">blog ↗</a> ·
-  <a href="https://github.com/femascheti/simulador-propagacao-informacao" style="color:var(--ink-soft);">código no GitHub ↗</a>
-</footer>
+        <p class="landing-extra">
+          Quer aplicar isso em sala?
+          <a class="chip" href="#" title="Em breve"
+            >Sequência de aula pronta
+            <span class="landing-em-breve">em breve</span></a
+          >
+        </p>
+      </div>
+    </section>
 
-<script>
-  (function () {
-    const toggle = document.getElementById('themeToggle');
-    const label = document.getElementById('themeLabel');
-    const root = document.documentElement;
-    const states = ['system', 'light', 'dark'];
-    let stateIndex = 0;
-    toggle.addEventListener('click', () => {
-      stateIndex = (stateIndex + 1) % states.length;
-      const s = states[stateIndex];
-      if (s === 'system') { root.removeAttribute('data-theme'); label.textContent = 'tema: sistema'; }
-      else { root.setAttribute('data-theme', s); label.textContent = 'tema: ' + (s === 'light' ? 'claro' : 'escuro'); }
-    });
-  })();
-</script>
-</body>
+    <footer class="landing-footer">
+      fernanda<span style="color: var(--pink)">•</span>mascheti ·
+      <a href="https://femascheti.com" style="color: var(--ink-soft)">blog ↗</a>
+      ·
+      <a
+        href="https://github.com/femascheti/simulador-propagacao-informacao"
+        style="color: var(--ink-soft)"
+        >código no GitHub ↗</a
+      >
+    </footer>
+
+    <script>
+      (function () {
+        const toggle = document.getElementById("themeToggle");
+        const label = document.getElementById("themeLabel");
+        const root = document.documentElement;
+        const states = ["system", "light", "dark"];
+        let stateIndex = 0;
+        toggle.addEventListener("click", () => {
+          stateIndex = (stateIndex + 1) % states.length;
+          const s = states[stateIndex];
+          if (s === "system") {
+            root.removeAttribute("data-theme");
+            label.textContent = "tema: sistema";
+          } else {
+            root.setAttribute("data-theme", s);
+            label.textContent = "tema: " + (s === "light" ? "claro" : "escuro");
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>

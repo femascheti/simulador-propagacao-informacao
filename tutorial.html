@@ -34,8 +34,9 @@
     </button>
   </div>
   <span class="eyebrow">Tutorial guiado · Cidadania Digital</span>
-  <h1>Como a informação se espalha</h1>
-  <p class="lede">Quatro passos, do conceito básico até a simulação completa. Dá pra usar em sala, no ritmo da explicação.</p>
+  <h1>Como a informação se espalha?</h1>
+  <p class="lede">Este tutorial guiado explica como uma informação se espalha por uma rede de pessoas conectadas, através de uma simulação interativa.</p>
+  <p class="lede">Por trás desta rede tem um grafo: uma rede de pontos (as pessoas) ligados por linhas (as conexões entre elas). É assim que os cientistas de dados representam qualquer rede, seja de amigos, de contatos ou de informações que se espalham.</p>
 </header>
 
 <main class="wrap">
@@ -51,8 +52,11 @@
       <div class="alert">
         <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
         <div>
-          <p class="alert-title">O básico</p>
-          <p class="alert-description" id="instrucaoNivel0">Clique no nó laranja — ele já tem a informação e está pronto pra compartilhar.</p>
+          <p class="alert-title" id="alertTituloNivel0">Comece por aqui!</p>
+          <p class="alert-description" id="instrucaoNivel0">Para iniciar, clique no nó laranja, ele tem uma informação guardada. Você pode escolher repassar ou não repassar a informação.</p>
+          <p class="alert-description" id="instrucaoNivel0Repassou" style="display:none;">Você repassou a informação! Agora observe o caminho que ela percorre pela rede.</p>
+          <p class="alert-description" id="instrucaoNivel0NaoRepassou" style="display:none;">Você não repassou a informação. Ninguém mais vai ver ela.</p>
+          <p class="alert-description" id="lembreteCoresNivel0" style="display:none;">Antes de seguir, relembre o que cada cor significa: azul é quem ainda não viu a informação, rosa é quem viu mas ainda não decidiu, laranja é quem está selecionado agora, verde é quem repassou, e bege é quem recebeu e decidiu não repassar. Clique em "Próximo nível" de novo pra continuar.</p>
         </div>
       </div>
       <div class="sim-canvas-wrap" style="margin-top: var(--space-5);">
@@ -79,7 +83,7 @@
       <div class="alert">
         <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
         <div>
-          <p class="alert-title">A rede cresce</p>
+          <p class="alert-title">Uma rede cresce</p>
           <p class="alert-description">Clique em "Próximo passo" pra avançar a simulação aos poucos e observar como a informação se ramifica.</p>
         </div>
       </div>
@@ -107,8 +111,8 @@
       <div class="alert">
         <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
         <div>
-          <p class="alert-title">Agora sozinha</p>
-          <p class="alert-description">A simulação roda sozinha. Ajuste o número de pessoas e a velocidade, e clique em Iniciar.</p>
+          <p class="alert-title">Agora, vamos ver como se comporta a rede sozinha!</p>
+          <p class="alert-description">A simulação executa sozinha. Ajuste o número de pessoas e a velocidade e clique em Iniciar.</p>
         </div>
       </div>
       <div class="sim-controls">
@@ -145,13 +149,13 @@
               <span class="tooltip" id="educacaoNivel2Tooltip">30%</span>
               <span class="slider-edge">100%</span>
             </div>
-            <span class="field-description">reduz bastante a chance de repassar, mas não zera</span>
+            <span class="field-description">O que acontece quando uma porcentagem de pessoas tem acesso à educação midiática?</span>
           </div>
         </div>
       </div>
       <div class="sim-actions">
         <button class="btn-pill primary focus-ring" id="btnIniciarNivel2" type="button">Iniciar</button>
-        <button class="btn-pill focus-ring" id="btnResetarNivel2" type="button">Resetar</button>
+        <button class="btn-pill focus-ring" id="btnResetarNivel2" type="button">Reiniciar</button>
       </div>
       <div class="sim-canvas-wrap">
         <canvas id="quadroNivel2" width="700" height="420"></canvas>
@@ -173,8 +177,8 @@
       <div class="alert">
         <svg class="alert-icon icon" viewBox="0 0 24 24"><use href="#icon-info"/></svg>
         <div>
-          <p class="alert-title">Nem toda informação pesa igual</p>
-          <p class="alert-description">Repare como o tipo de informação muda a velocidade de propagação — texto se espalha menos que imagem, que se espalha menos que vídeo curto.</p>
+          <p class="alert-title">Nem toda informação tem o mesmo peso!</p>
+          <p class="alert-description">Observe como o tipo de informação muda a velocidade de propagação.</p>
         </div>
       </div>
       <div class="sim-controls">
@@ -183,7 +187,7 @@
           <div class="btn-group" id="tipoInformacaoNivel3Group" role="group" aria-labelledby="tipoInformacaoNivel3Label">
             <button class="btn-pill active focus-ring" type="button" data-tipo="texto">Texto</button>
             <button class="btn-pill focus-ring" type="button" data-tipo="imagem">Imagem</button>
-            <button class="btn-pill focus-ring" type="button" data-tipo="video">Vídeo curto</button>
+            <button class="btn-pill focus-ring" type="button" data-tipo="video">Vídeo</button>
           </div>
         </div>
         <div class="field">
@@ -219,13 +223,13 @@
               <span class="tooltip" id="educacaoNivel3Tooltip">30%</span>
               <span class="slider-edge">100%</span>
             </div>
-            <span class="field-description">reduz bastante a chance de repassar, mas não zera</span>
+            <span class="field-description">O que acontece quando uma porcentagem de pessoas tem acesso à educação midiática?</span>
           </div>
         </div>
       </div>
       <div class="sim-actions">
         <button class="btn-pill primary focus-ring" id="btnIniciarNivel3" type="button">Iniciar</button>
-        <button class="btn-pill focus-ring" id="btnResetarNivel3" type="button">Resetar</button>
+        <button class="btn-pill focus-ring" id="btnResetarNivel3" type="button">Reiniciar</button>
       </div>
       <div class="sim-canvas-wrap">
         <canvas id="quadroNivel3" width="700" height="420"></canvas>
@@ -251,7 +255,7 @@
 </main>
 
 <footer class="wrap site-footer">
-  <span class="footer-brand">fernanda<span class="footer-dot">•</span>mascheti</span>
+  <span class="footer-brand">fernanda<span class="footer-dot">●</span>mascheti</span>
   <div class="site-footer-links">
     <a href="novidades.html">✨ novidades</a>
     <a href="https://femascheti.com">blog ↗</a>

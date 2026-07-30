@@ -377,10 +377,28 @@ function inicializarNivel0() {
     document.getElementById('btnReiniciarNivel0').addEventListener('click', () => {
         layoutInicial();
         atualizarInstrucao();
+        esconderLembreteCores();
         desenhar();
     });
 
     desenhar();
+}
+
+// mostra um lembrete das cores no lugar da instrução do Nível 0,
+// antes de deixar avançar pro Nível 1 — pra fixar o significado
+// de cada cor antes da rede crescer
+let lembreteCoresNivel0Mostrado = false;
+function mostrarLembreteCores() {
+    lembreteCoresNivel0Mostrado = true;
+    document.getElementById('alertTituloNivel0').textContent = 'Antes de continuar';
+    document.getElementById('instrucaoNivel0').style.display = 'none';
+    document.getElementById('lembreteCoresNivel0').style.display = '';
+}
+function esconderLembreteCores() {
+    lembreteCoresNivel0Mostrado = false;
+    document.getElementById('alertTituloNivel0').textContent = 'Comece por aqui!';
+    document.getElementById('instrucaoNivel0').style.display = '';
+    document.getElementById('lembreteCoresNivel0').style.display = 'none';
 }
 
 // ============================================================
@@ -622,6 +640,7 @@ function mostrarNivel(n) {
     });
     if (motorNivel2 && n !== 2) motorNivel2.pararLoop();
     if (motorNivel3 && n !== 3) motorNivel3.pararLoop();
+    if (n === 0 && inicializado[0]) esconderLembreteCores();
     nivelAtual = n;
     atualizarProgresso();
     if (!inicializado[n]) {
@@ -631,6 +650,10 @@ function mostrarNivel(n) {
 }
 
 document.getElementById('btnProximoNivel').addEventListener('click', () => {
+    if (nivelAtual === 0 && !lembreteCoresNivel0Mostrado) {
+        mostrarLembreteCores();
+        return;
+    }
     if (nivelAtual === niveis.length - 1) {
         window.location.href = 'simulacao.html';
     } else {
